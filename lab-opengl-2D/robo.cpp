@@ -1,6 +1,8 @@
 #include "robo.h"
 #include <math.h>
 
+#define PI 3.14159265358979323846
+
 void Robo::DesenhaRect(GLint height, GLint width, GLfloat R, GLfloat G, GLfloat B)
 {
     glColor3f(R, G, B);
@@ -17,10 +19,36 @@ void Robo::DesenhaRect(GLint height, GLint width, GLfloat R, GLfloat G, GLfloat 
 
 void Robo::DesenhaCirc(GLint radius, GLfloat R, GLfloat G, GLfloat B)
 {
+    int PONTOS = 100;
+    float angulo;
+    
+    glBegin(GL_POLYGON);
+
+    glColor3f(1.0f, 0.0f, 0.0f); // Cor vermelha
+
+    for (int i = 0; i < PONTOS; i++)
+    {
+        angulo = (2.0 * PI * i) / PONTOS;
+        glVertex2f(
+            radius * cos(angulo),
+            radius * sin(angulo));
+    }
+    glEnd();
 }
 
 void Robo::DesenhaRoda(GLfloat x, GLfloat y, GLfloat thetaWheel, GLfloat R, GLfloat G, GLfloat B)
 {
+    glPushMatrix();
+
+    glTranslatef(x, y, 0);
+
+    DesenhaRect(baseHeight, baseWidth, 0, 0, GL_BLUE);
+
+    glRotatef(thetaWheel, 0, 0, 1);
+
+    DesenhaCirc(radiusWheel, R, G, B);
+    
+    glPopMatrix();
 }
 
 void Robo::DesenhaBraco(GLfloat x, GLfloat y, GLfloat theta1, GLfloat theta2, GLfloat theta3)
@@ -52,10 +80,18 @@ void Robo::DesenhaRobo(GLfloat x, GLfloat y, GLfloat thetaWheel, GLfloat theta1,
 {
     glPushMatrix();
 
-    glTranslatef(x, y, 0);
+    glTranslatef(x, y, 0.0);
     DesenhaRect(baseHeight, baseWidth, GL_RED, 0.0, 0.0);
 
-    DesenhaBraco(0, baseHeight, theta1, theta2, theta3);
+    DesenhaBraco(0.0, baseHeight, theta1, theta2, theta3);
+
+    /* ---- DESENHA RODA ESQUERDA ---- */
+    DesenhaRoda(-baseWidth/2, 0.0, thetaWheel, 0.0, GL_GREEN, GL_BLUE);
+    /* ------------------------------ */
+
+    /* ---- DESENHA RODA DIREITA ---- */
+    DesenhaRoda(baseWidth/2, 0.0, thetaWheel, 0.0, GL_GREEN, GL_BLUE);
+    /* ------------------------------ */
 
     glPopMatrix();
 }
