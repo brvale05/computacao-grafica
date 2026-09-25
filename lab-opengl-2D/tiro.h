@@ -4,6 +4,7 @@
 #include <GL/glu.h>
 
 #define radiusTiro 5
+#define PI 3.14159265358979323846
 
 class Tiro {
     GLfloat gXInit; 
@@ -22,7 +23,7 @@ public:
         gX = x; 
         gY = y; 
         gDirectionAng = directionAng; 
-        gVel = 0.1;
+        gVel = 1.0;
     };
     void Desenha(){ 
         DesenhaTiro(gX, gY);
