@@ -23,12 +23,12 @@ public:
         gX = x; 
         gY = y; 
         gDirectionAng = directionAng; 
-        gVel = 1.0;
+        gVel = 0.1;
     };
     void Desenha(){ 
         DesenhaTiro(gX, gY);
     };
-    void Move();
+    void Move(GLdouble time);
     bool Valido();
     void GetPos(GLfloat &xOut, GLfloat &yOut){
         xOut = gX;

@@ -42,7 +42,7 @@ void Alvo::DesenhaAlvo(GLfloat x, GLfloat y)
 
 void Alvo::Recria(GLfloat x, GLfloat y)
 {
-    Alvo::gX += x;
+    Alvo::gX = x;
     Alvo::gY = y;
 
     Alvo::gColor = Alvo::gColor + 1 > 2 ? 0 : Alvo::gColor + 1;
